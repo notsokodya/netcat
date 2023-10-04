@@ -99,7 +99,7 @@ async function InitCommands(client) {
     await RefreshCommands(client);
 
     client.on(Events.InteractionCreate, async interaction => {
-        if (!interaction.isChatInputCommand()) return;
+        if (!interaction.isChatInputCommand() && !interaction.isMessageContextMenuCommand()) return;
     
         const command = interaction.client.commands[interaction.commandName];
     
@@ -111,7 +111,7 @@ async function InitCommands(client) {
         try {
             await command.execute(interaction);
         } catch (err) {
-            logger.Error(err);
+            logger.Error(err.message);
             await interaction.reply({content: "There was an error while executing this command!", ephemeral: true});
         }
     });
