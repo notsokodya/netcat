@@ -37,8 +37,38 @@ async function LoadCommands(commands) {
         resolve();
     });
 }
-function ReloadCommand(command, isPath) {
+async function ReloadCommand(command_name, client, isPath) {
+    if ( isPath ) {
+        const section = command_name.match(/([^\/]+)\//g)[1];
+        const command = (await import(`../commands/${command_name}?version=${Number(new Date())}`)).default;
+        command.section = section;
 
+        client.commands[command.data.name] = command;
+        commands_json.push(command.data.toJSON());
+        logger.Info(`Reloaded ${command.data.name}`);
+
+        RefreshCommands(client);
+    } else {
+        if ( client.commands[command_name] ) {
+            for (const data_id in commands_json) {
+                const data = commands_json[data_id];
+                if ( data.name == command_name ) {
+                    commands_json.splice(data_id, 1)
+                    break
+                }
+            }
+
+            const section = client.commands[command_name].section;
+            const command = (await import(`../commands/${section}/${command_name}.js?version=${Number(new Date())}`)).default;
+            command.section = section;
+
+            client.commands[command.data.name] = command;
+            commands_json.push(command.data.toJSON());
+            logger.Info(`Reloaded ${command.data.name}`);
+
+            RefreshCommands(client);
+        }
+    }
 }
 async function RefreshCommands(client) {
     const rest = new REST({version: 10}).setToken(config.token);
