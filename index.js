@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, Collection } from "discord.js";
+import { Client, GatewayIntentBits } from "discord.js";
 import { InitCommands } from "./modules/commandsHandler.js";
 import { Logger } from "./modules/logger.js";
 import config from "./config.js";
@@ -44,14 +44,12 @@ client.login(config.token);
 process.on("unhandledException", err => {
 	logger.Error(err);
 
-	if (client._devErrors) {
+	if (client._devErrors)
 		client._devErrors.send("```xl\n" + err + "\n```");
-	}
 });
 process.on("uncaughtException", err => {
 	logger.Error(err);
 
-	if (client._devErrors) {
+	if (client._devErrors)
 		client._devErrors.send("```xl\n" + `${err.message}\n\n${err.stack}` + "\n```");
-	}
 });

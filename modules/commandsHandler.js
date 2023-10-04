@@ -112,6 +112,8 @@ async function InitCommands(client) {
             await command.execute(interaction);
         } catch (err) {
             logger.Error(err.message);
+            if (client._devErrors)
+		        client._devErrors.send("```xl\n" + `${err.message}\n\n${err.stack}` + "\n```");
             await interaction.reply({content: "There was an error while executing this command!", ephemeral: true});
         }
     });
