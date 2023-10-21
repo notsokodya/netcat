@@ -1,17 +1,20 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
 
 function getStringTime(secs) {
-    const days = Math.floor(secs / 60 / 60 / 24);
+    const weeks = Math.floor(secs / 60 / 60 / 24 / 7);
+    const days = Math.floor(secs / 60 / 60 / 24) % 7;
     const hours = Math.floor(secs / 60 / 60) % 24;
     const mintues = Math.floor(secs / 60) % 60;
     const seconds = Math.floor(secs) % 60;
 
-    if (days > 0) {
-        return `${days}d, ${hours}h, ${mintues}m, ${seconds}s`;
+    if ( weeks > 0 ) {
+        return `${weeks}w ${days}d ${hours}h ${mintues}m ${seconds}s`;
+    } else if (days > 0) {
+        return `${days}d ${hours}h ${mintues}m ${seconds}s`;
     } else if (hours > 0) {
-        return `${hours}h, ${mintues}m, ${seconds}s`;
+        return `${hours}h ${mintues}m ${seconds}s`;
     } else if (mintues > 0) {
-        return `${mintues}m, ${seconds}s`;
+        return `${mintues}m ${seconds}s`;
     } else {
         return `${seconds}s`;
     }
