@@ -1,23 +1,83 @@
-import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder, EmbedBuilder } from "discord.js";
+
 export default {
     data: new SlashCommandBuilder()
         .setName("avatar")
-        .setDescription("Replies with user's avatar")
-        .addUserOption(option => option
-            .setName("user")
-            .setDescription("The user who avatar you want")
-            .setRequired(true)
+        .setDescription("Get user's or guild's avatar")
+        .addSubcommand(subcommand => 
+            subcommand
+                .setName("user")
+                .setDescription("User's avatar")
+                .addUserOption(option => option
+                    .setName("user")
+                    .setDescription("The user who avatar you want")
+                    .setRequired(true)
+                )
+        )
+        .addSubcommand(subcommand => 
+            subcommand
+                .setName("guild")
+                .setDescription("Guild's avatar")
         ),
     async execute(interaction) {
-        const user = await interaction.options.getUser("user").fetch();
+        if ( interaction.options.getSubcommand() === "user" ) {
+            const user = await interaction.options.getUser("user").fetch();
 
-        const embed = new EmbedBuilder()
-            .setTitle(`${user.displayName}'s profile picture`)
-            .setImage(user.displayAvatarURL({size: 2048, dynamic: true}))
-            .setColor(user.accentColor);
+            const embed = new EmbedBuilder()
+                .setTitle(`${user.displayName}'s profile picture`)
+                .setImage(user.displayAvatarURL({size: 2048, dynamic: true}))
+                .setColor(user.accentColor);
 
-        await interaction.reply({
-            embeds: [embed]
-        });
+            const button_png = new ButtonBuilder()
+                .setLabel("PNG")
+                .setURL(user.displayAvatarURL({extension: "png", size: 2048, dynamic: true}))
+                .setStyle(ButtonStyle.Link);
+
+            const button_jpg = new ButtonBuilder()
+                .setLabel("JPG")
+                .setURL(user.displayAvatarURL({extension: "jpg", size: 2048, dynamic: true}))
+                .setStyle(ButtonStyle.Link);
+
+            const button_webp = new ButtonBuilder()
+                .setLabel("WEBP")
+                .setURL(user.displayAvatarURL({extension: "webp", size: 2048, dynamic: true}))
+                .setStyle(ButtonStyle.Link);
+
+            const row = new ActionRowBuilder()
+                .addComponents(button_png, button_jpg, button_webp);
+
+            await interaction.reply({
+                embeds: [embed],
+                components: [row]
+            });
+        } else if ( interaction.options.getSubcommand() === "guild" ) {
+            const embed = new EmbedBuilder()
+                .setTitle("Guild icon")
+                .setImage(interaction.guild.iconURL({extension: "png", size: 2048, dynamic: true}))
+                .setColor("Purple");
+
+            const button_png = new ButtonBuilder()
+                .setLabel("PNG")
+                .setURL(interaction.guild.iconURL({extension: "png", size: 2048, dynamic: true}))
+                .setStyle(ButtonStyle.Link);
+
+            const button_jpg = new ButtonBuilder()
+                .setLabel("JPG")
+                .setURL(interaction.guild.iconURL({extension: "jpg", size: 2048, dynamic: true}))
+                .setStyle(ButtonStyle.Link);
+
+            const button_webp = new ButtonBuilder()
+                .setLabel("WEBP")
+                .setURL(interaction.guild.iconURL({extension: "webp", size: 2048, dynamic: true}))
+                .setStyle(ButtonStyle.Link);
+
+            const row = new ActionRowBuilder()
+                .addComponents(button_png, button_jpg, button_webp);
+
+            await interaction.reply({
+                embeds: [embed],
+                components: [row]
+            });
+        }
     }
 };
