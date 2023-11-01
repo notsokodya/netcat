@@ -17,7 +17,7 @@ function IsOwnerCheck(interaction) {
             });
         }
     } else {
-        isOwner = id === config.owner;
+        isOwner = interaction === config.owner;
     }
 
     return isOwner
