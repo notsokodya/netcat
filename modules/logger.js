@@ -21,7 +21,14 @@ export class Logger {
 
     Log (level, message) {
         const d = new Date();
-        const timestamp = `[${d.getFullYear()}-${d.getMonth()}-${d.getDay()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}.${d.getMilliseconds()}]`;
+		const month = d.getMonth().toString().padStart(2, 				"0"),
+			  day = d.getDay().toString().padStart(2, 					"0"),
+			  hours = d.getHours().toString().padStart(2, 				"0"),
+			  minutes = d.getMinutes().toString().padStart(2, 			"0"),
+			  seconds = d.getSeconds().toString().padStart(2, 			"0"),
+			  milliseconds = d.getMilliseconds().toString().padStart(3, "0");
+
+        const timestamp = `[${d.getFullYear()}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}]`;
         console.log(`${colors.fgGray + timestamp} ${colors.reverse + LevelsColors[level]}[ ${Levels[level]} ]${colors.noReverse} [${this.#title}] ${colors.clear + message}`);
     }
     Debug (message) { this.Log(0, message); }
