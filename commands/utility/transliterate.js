@@ -24,12 +24,12 @@ export default {
                 {name: "to English", value: "en"}
             )
         )
-        .addStringOption(option => {
+        .addStringOption(option => 
             option
             .setName("text")
             .setDescription("Text to transliterate")
             .setRequired(true)
-        }),
+        ),
     async execute(interaction) {
         const lang = interaction.options.getString("lang") || "ru";
         const text = interaction.options.getString("text");
