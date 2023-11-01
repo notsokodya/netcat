@@ -11,6 +11,7 @@
 	"rules": {
 		"no-async-promise-executor": "off",
 		"no-mixed-spaces-and-tabs": "off",
-		"no-useless-escape": "off"
+		"no-useless-escape": "off",
+		"no-unused-vars": "off"
 	}
 }
