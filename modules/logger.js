@@ -28,4 +28,4 @@ export class Logger {
     Info (message) { this.Log(1, message); }
     Warn (message) { this.Log(2, message); }
     Error (message) { this.Log(3, message); }
-};
+}
