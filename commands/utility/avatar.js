@@ -29,19 +29,16 @@ export default {
                 .setColor(user.accentColor);
 
             const button_png = new ButtonBuilder()
-                .setLabel("PNG")
-                .setURL(user.displayAvatarURL({extension: "png", size: 2048, dynamic: true}))
-                .setStyle(ButtonStyle.Link);
+                .setLabel("PNG").setStyle(ButtonStyle.Link)
+                .setURL(user.displayAvatarURL({extension: "png", size: 2048, dynamic: true}));
 
             const button_jpg = new ButtonBuilder()
-                .setLabel("JPG")
-                .setURL(user.displayAvatarURL({extension: "jpg", size: 2048, dynamic: true}))
-                .setStyle(ButtonStyle.Link);
+                .setLabel("JPG").setStyle(ButtonStyle.Link)
+                .setURL(user.displayAvatarURL({extension: "jpg", size: 2048, dynamic: true}));
 
             const button_webp = new ButtonBuilder()
-                .setLabel("WEBP")
-                .setURL(user.displayAvatarURL({extension: "webp", size: 2048, dynamic: true}))
-                .setStyle(ButtonStyle.Link);
+                .setLabel("WEBP").setStyle(ButtonStyle.Link)
+                .setURL(user.displayAvatarURL({extension: "webp", size: 2048, dynamic: true}));
 
             const row = new ActionRowBuilder()
                 .addComponents(button_png, button_jpg, button_webp);
@@ -57,19 +54,16 @@ export default {
                 .setColor("Purple");
 
             const button_png = new ButtonBuilder()
-                .setLabel("PNG")
-                .setURL(interaction.guild.iconURL({extension: "png", size: 2048, dynamic: true}))
-                .setStyle(ButtonStyle.Link);
+                .setLabel("PNG").setStyle(ButtonStyle.Link)
+                .setURL(interaction.guild.iconURL({extension: "png", size: 2048, dynamic: true}));
 
             const button_jpg = new ButtonBuilder()
-                .setLabel("JPG")
-                .setURL(interaction.guild.iconURL({extension: "jpg", size: 2048, dynamic: true}))
-                .setStyle(ButtonStyle.Link);
+                .setLabel("JPG").setStyle(ButtonStyle.Link)
+                .setURL(interaction.guild.iconURL({extension: "jpg", size: 2048, dynamic: true}));
 
             const button_webp = new ButtonBuilder()
-                .setLabel("WEBP")
-                .setURL(interaction.guild.iconURL({extension: "webp", size: 2048, dynamic: true}))
-                .setStyle(ButtonStyle.Link);
+                .setLabel("WEBP").setStyle(ButtonStyle.Link)
+                .setURL(interaction.guild.iconURL({extension: "webp", size: 2048, dynamic: true}));
 
             const row = new ActionRowBuilder()
                 .addComponents(button_png, button_jpg, button_webp);
