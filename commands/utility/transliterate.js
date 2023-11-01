@@ -17,18 +17,18 @@ export default {
         .setDescription("Transliterates text")
         .addStringOption(option => 
             option
+            .setName("text")
+            .setDescription("Text to transliterate")
+            .setRequired(true)
+        )
+        .addStringOption(option => 
+            option
             .setName("lang")
             .setDescription("Language to transliterate text")
             .addChoices(
                 {name: "to Russian", value: "ru"},
                 {name: "to English", value: "en"}
             )
-        )
-        .addStringOption(option => 
-            option
-            .setName("text")
-            .setDescription("Text to transliterate")
-            .setRequired(true)
         ),
     async execute(interaction) {
         const lang = interaction.options.getString("lang") || "ru";
