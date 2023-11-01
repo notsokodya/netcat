@@ -81,7 +81,8 @@ async function RefreshCommands(client) {
         );
         logger.Info(`Successfully refreshed ${data.length} application (/) commands`);
     } catch (err) {
-
+        logger.Error(err);
+        throw err;
     }
 }
 async function ReloadCommands(client) {
