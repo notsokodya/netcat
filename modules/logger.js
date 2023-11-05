@@ -22,7 +22,7 @@ export class Logger {
     Log (level, message) {
         const d = new Date();
 		const month = d.getMonth().toString().padStart(2, 				"0"),
-			  day = d.getDay().toString().padStart(2, 					"0"),
+			  day = d.getDate().toString().padStart(2, 					"0"),
 			  hours = d.getHours().toString().padStart(2, 				"0"),
 			  minutes = d.getMinutes().toString().padStart(2, 			"0"),
 			  seconds = d.getSeconds().toString().padStart(2, 			"0"),
